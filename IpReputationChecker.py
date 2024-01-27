@@ -54,14 +54,12 @@ class Global_Functions:
         virus_total_key = config_file.get('VirusTotal_key')
         ibm_xforce_key = config_file.get('Ibm_X-force_key')
         ibm_xforce_password = config_file.get('Ibm_X-force_password')
-        logging.info(f"abuse_ipdb_key = {abuse_ipdb_key}\n virus_total_key = {virus_total_key}\n ibm_xforce_key = {ibm_xforce_key}\n ibm_xforce_password = {ibm_xforce_password}")
 
         while not abuse_ipdb_key:
             user_have_abuse_ipdb_key = input("Do you have an AbuseIPDB API key? (yes/no): ").lower()
             if user_have_abuse_ipdb_key == "yes":
                 abuse_ipdb_key = input("Enter AbuseIPDB API key: ")
                 config_file['abuseipdb_key'] = abuse_ipdb_key
-                logging.info(f"New AbuseIPDB API key: {abuse_ipdb_key}")
             elif user_have_abuse_ipdb_key == "no":
                 abuse_ipdb_key = " "
                 config_file['abuseipdb_key'] = abuse_ipdb_key
@@ -73,7 +71,6 @@ class Global_Functions:
             if user_have_virus_total_key == "yes":
                 virus_total_key = input("Enter VirusTotal API key: ")
                 config_file['VirusTotal_key'] = virus_total_key
-                logging.info(f"New VirusTotal API key: {virus_total_key}")
             elif user_have_virus_total_key == "no":
                 virus_total_key = " "
                 config_file['VirusTotal_key'] = virus_total_key
@@ -87,8 +84,6 @@ class Global_Functions:
                 config_file['Ibm_X-force_key'] = ibm_xforce_key
                 ibm_xforce_password = input("Enter IBM X-Force API password: ")
                 config_file['Ibm_X-force_password'] = ibm_xforce_password
-                logging.info(f"New IBM X-Force API key: {ibm_xforce_key}")
-                logging.info(f"New IBM X-Force API password: {ibm_xforce_password}")
             elif user_have_ibm_xforce_key == "no":
                 ibm_xforce_key = " "
                 config_file['Ibm_X-force_key'] = ibm_xforce_key
@@ -124,7 +119,6 @@ class AbuseIPDB:
                 new_key = input("\nEnter new AbuseIPDB API key: ")
                 config_file['abuseipdb_key'] = new_key
                 AbuseIPDB.global_functions.save_config_file(config_file_path, config_file)
-                logging.info(f"New AbuseIPDB API key: {new_key}")
                 print("\nNew AbuseIPDB API key saved")
                 break
             elif change_key == "no":
@@ -250,7 +244,6 @@ class VirusTotal:
                 new_key = input("\nEnter new VirusTotal API key: ")
                 config_file['VirusTotal_key'] = new_key
                 VirusTotal.global_functions.save_config_file(config_file_path, config_file)
-                logging.info(f"New VirusTotal API key: {new_key}")
                 print("\nVirusTotal API key saved")
             elif change_key == "no":
                 print("No changes to the VirusTotal API key")
@@ -319,8 +312,6 @@ class IBM_X_Force:
                 new_password = input("\nEnter new IBM X-Force API password: ")
                 config_file['Ibm_X-force_password'] = new_password
                 IBM_X_Force.global_functions.save_config_file(config_file_path, config_file)
-                logging.info(f"New IBM X-Force API key: {new_key}")
-                logging.info(f"New IBM X-Force API password: {new_password}")
                 print("\nIBM X-Force API key saved")
             elif change_key == "no":
                 print("No changes to the IBM X-Force API key")
@@ -338,7 +329,6 @@ class IBM_X_Force:
 
         # Encode the API key and password using base64
         credentials = base64.b64encode(f'{ibm_xforce_key}:{ibm_xforce_password}'.encode('utf-8')).decode('utf-8')
-        logging.info(f"Auth token for IBM X-Force: {credentials}")
         return credentials
     
     def get_ip_risk_ibm(ip, token):
