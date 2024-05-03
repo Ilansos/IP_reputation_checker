@@ -34,7 +34,7 @@ Ensure you have the following requirements installed:
    cd IP-Reputation-Checker
 4. Install the required packages:
     ```bash
-   cd IP-Reputation-Checker
+   pip install -r requirements.txt
 ## Installation on Windows
 
 1. Download and install Python 3.x from python.org.
